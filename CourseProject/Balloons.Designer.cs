@@ -35,14 +35,16 @@
             this.normal = new System.Windows.Forms.Button();
             this.hard = new System.Windows.Forms.Button();
             this.Shop = new System.Windows.Forms.GroupBox();
-            this.score = new System.Windows.Forms.TextBox();
-            this.Exit = new System.Windows.Forms.Button();
             this.Bucket = new System.Windows.Forms.Button();
             this.Bomb = new System.Windows.Forms.Button();
             this.Pickaxe = new System.Windows.Forms.Button();
+            this.score = new System.Windows.Forms.TextBox();
+            this.Exit = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.moves = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.Finalscore = new System.Windows.Forms.Label();
             this.Shop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -138,31 +140,6 @@
             this.Shop.Text = "Магазин";
             this.Shop.Visible = false;
             // 
-            // score
-            // 
-            this.score.BackColor = System.Drawing.Color.Lime;
-            this.score.Enabled = false;
-            this.score.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.score.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.score.Location = new System.Drawing.Point(422, 36);
-            this.score.Name = "score";
-            this.score.Size = new System.Drawing.Size(66, 22);
-            this.score.TabIndex = 108;
-            this.score.Text = "5000";
-            this.score.Visible = false;
-            // 
-            // Exit
-            // 
-            this.Exit.BackColor = System.Drawing.Color.Green;
-            this.Exit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Exit.Location = new System.Drawing.Point(420, 411);
-            this.Exit.Name = "Exit";
-            this.Exit.Size = new System.Drawing.Size(70, 70);
-            this.Exit.TabIndex = 109;
-            this.Exit.Text = "Выход";
-            this.Exit.UseVisualStyleBackColor = false;
-            this.Exit.Click += new System.EventHandler(this.Exit_Click);
-            // 
             // Bucket
             // 
             this.Bucket.BackColor = System.Drawing.Color.Green;
@@ -199,6 +176,31 @@
             this.Pickaxe.UseVisualStyleBackColor = false;
             this.Pickaxe.Click += new System.EventHandler(this.Pickaxe_Click);
             // 
+            // score
+            // 
+            this.score.BackColor = System.Drawing.Color.Lime;
+            this.score.Enabled = false;
+            this.score.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.score.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.score.Location = new System.Drawing.Point(422, 36);
+            this.score.Name = "score";
+            this.score.Size = new System.Drawing.Size(66, 22);
+            this.score.TabIndex = 108;
+            this.score.Text = "10000";
+            this.score.Visible = false;
+            // 
+            // Exit
+            // 
+            this.Exit.BackColor = System.Drawing.Color.Green;
+            this.Exit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Exit.Location = new System.Drawing.Point(420, 411);
+            this.Exit.Name = "Exit";
+            this.Exit.Size = new System.Drawing.Size(70, 70);
+            this.Exit.TabIndex = 109;
+            this.Exit.Text = "Выход";
+            this.Exit.UseVisualStyleBackColor = false;
+            this.Exit.Click += new System.EventHandler(this.Exit_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
@@ -234,12 +236,37 @@
             this.moves.Text = "0";
             this.moves.Visible = false;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(52, 113);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(397, 146);
+            this.label4.TabIndex = 112;
+            this.label4.Text = "ИГРА\r\nОКОНЧЕНА";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label4.Visible = false;
+            // 
+            // Finalscore
+            // 
+            this.Finalscore.AutoSize = true;
+            this.Finalscore.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Finalscore.Location = new System.Drawing.Point(100, 259);
+            this.Finalscore.Name = "Finalscore";
+            this.Finalscore.Size = new System.Drawing.Size(237, 31);
+            this.Finalscore.TabIndex = 113;
+            this.Finalscore.Text = "Финальный счёт: ";
+            this.Finalscore.Visible = false;
+            // 
             // Balloons
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(489, 481);
+            this.Controls.Add(this.Finalscore);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.moves);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Exit);
@@ -255,7 +282,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Balloons";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "li";
+            this.Text = "Balloons";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -280,6 +307,8 @@
         private System.Windows.Forms.Button Exit;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox moves;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label Finalscore;
     }
 }
 

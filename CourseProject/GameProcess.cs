@@ -97,6 +97,41 @@ namespace CourseProject
             }
             return "";
         }
+
+        //Если среди уничтоженных шариков была бомба
+        public List<int[]> define_explode_indexes(string[,] gameboard, ref List<int[]> indexes)
+        {
+            int matches = indexes.Count();
+            bool unique;
+            List<int[]> bomb_indexes = new List<int[]>();
+            for (int i = 0; i< matches; i++)
+            {
+               
+                //если найдена бомба добавить индексы и запомнить положение бомбы
+                if (gameboard[indexes[i][0], indexes[i][1]] == "Bomb")
+                {
+                    //квадрат 3 на 3
+                    for (int x = indexes[i][0] - 1; x <= indexes[i][0] + 1; x++)
+                        for (int y = indexes[i][1] - 1; y <= indexes[i][1] + 1; y++)
+                        {
+                            unique = true;
+                            for (int j = 0; j < indexes.Count(); j++)//уникальный индекс?
+                                if (x == indexes[j][0] && y == indexes[j][1])
+                                {
+                                    unique = false;
+                                }
+                            if (unique && x >= 0 && x <= 9 && y >= 0 && y <= 9) 
+                            {
+                                indexes.Add(new int[2] { x, y });
+                            }
+                        }
+                    //индекс бомбы 
+                    bomb_indexes.Add(indexes[i]);
+                }
+            }
+            return bomb_indexes;
+        }
+
         public List<int[]> search_matches(ref string[,] gameboard, List<int[]> indexes, int difficulty)
         {
             List<int[]> match_indexes = new List<int[]>();
@@ -175,7 +210,6 @@ namespace CourseProject
 
         private bool by_line(ref string[,] gameboard, ref List<int[]> indexes, ref string step, string color)
         {
-            int[] bottle;
             int dots = indexes.Count();
             bool find = false;
             bool unique; 
@@ -193,7 +227,7 @@ namespace CourseProject
                                 {
                                     unique = false;
                                 }
-                            if (unique && (gameboard[indexes[i][0] - 1, indexes[i][1]] == color || gameboard[indexes[i][0] - 1, indexes[i][1]] == "M"))
+                            if (unique && (gameboard[indexes[i][0] - 1, indexes[i][1]] == color || gameboard[indexes[i][0] - 1, indexes[i][1]] == "M" || gameboard[indexes[i][0] - 1, indexes[i][1]] == "Bomb"))
                             {
                                 find = true;
                                 indexes.Add(new int[2] { indexes[i][0] - 1, indexes[i][1] });
@@ -208,7 +242,7 @@ namespace CourseProject
                                 {
                                     unique = false;
                                 }
-                            if (unique && (gameboard[indexes[i][0] + 1, indexes[i][1]] == color || gameboard[indexes[i][0] + 1, indexes[i][1]] == "M"))
+                            if (unique && (gameboard[indexes[i][0] + 1, indexes[i][1]] == color || gameboard[indexes[i][0] + 1, indexes[i][1]] == "M" || gameboard[indexes[i][0] + 1, indexes[i][1]] == "Bomb"))
                             {
                                 find = true;
                                 indexes.Add(new int[2] { indexes[i][0] + 1, indexes[i][1] });
@@ -229,7 +263,7 @@ namespace CourseProject
                                 {
                                     unique = false;
                                 }
-                            if (unique && (gameboard[indexes[i][0], indexes[i][1] - 1] == color || gameboard[indexes[i][0], indexes[i][1] - 1] == "M"))
+                            if (unique && (gameboard[indexes[i][0], indexes[i][1] - 1] == color || gameboard[indexes[i][0], indexes[i][1] - 1] == "M" || gameboard[indexes[i][0], indexes[i][1] - 1] == "Bomb"))
                             {
                                 find = true;
                                 indexes.Add(new int[2] { indexes[i][0], indexes[i][1] - 1 });
@@ -244,7 +278,7 @@ namespace CourseProject
                                 {
                                     unique = false;
                                 }
-                            if (unique && (gameboard[indexes[i][0], indexes[i][1] + 1] == color || gameboard[indexes[i][0], indexes[i][1] + 1] == "M"))
+                            if (unique && (gameboard[indexes[i][0], indexes[i][1] + 1] == color || gameboard[indexes[i][0], indexes[i][1] + 1] == "M" || gameboard[indexes[i][0], indexes[i][1] + 1] == "Bomb"))
                             {
                                 find = true;
                                 indexes.Add(new int[2] { indexes[i][0], indexes[i][1] + 1 });

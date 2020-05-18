@@ -19,6 +19,7 @@ namespace CourseProject
         bool mistake = false;//совершил ли игрок ошибку
         List<int[]> match_indexes = new List<int[]>();//индексы при уничтожении шариков
         List<int[]> indexes = new List<int[]>();//индексы при перемещении шариков
+        List<int[]> explosion_indexes = new List<int[]>();//индексы центра взрыва бомбы
         Timer tDestroy = new Timer();
         Timer tFall = new Timer();
         List <Point> points = new List<Point>();//индексы первого и второго выбранного шарика
@@ -121,10 +122,12 @@ namespace CourseProject
                               || (indexes[0][1] - 1 == XY[1] && indexes[0][0] == XY[0]))
                         {
                             indexes.Add(XY);
+                            //поменять местами
                             DrawSwapingBalloons();
                             string bottle = gameboard[indexes[0][0], indexes[0][1]];
                             gameboard[indexes[0][0], indexes[0][1]] = gameboard[indexes[1][0], indexes[1][1]];
                             gameboard[indexes[1][0], indexes[1][1]] = bottle;
+                            //поиск совпадений
                             match_indexes = game.search_matches(ref gameboard, indexes, difficulty);
                             bottle = gameboard[indexes[0][0], indexes[0][1]];
                             gameboard[indexes[0][0], indexes[0][1]] = gameboard[indexes[1][0], indexes[1][1]];
@@ -134,13 +137,24 @@ namespace CourseProject
                                 mistake = true;
                                 remaining_moves -= 1;
                                 moves.Text = remaining_moves.ToString();
+                                //если ходы кончились
                                 if (remaining_moves == 0)
                                 {
-
+                                    label1.Visible = false;
+                                    label3.Visible = false;
+                                    score.Visible = false;
+                                    moves.Visible = false;
+                                    Shop.Visible = false;
+                                    pictureBox1.Visible = false;
+                                    label4.Visible = true;
+                                    Finalscore.Visible = true;                                  
+                                    Finalscore.Text += score.Text;
                                 }
                             }
                             else
                             {
+                                //проверить бомбы
+                                explosion_indexes = game.define_explode_indexes(gameboard, ref match_indexes);                               
                                 //начислить очки
                                 score.Text = ((int)(Convert.ToInt32(score.Text) + 2 * match_indexes.Count * Math.Pow(1.1, match_indexes.Count))).ToString();
                                 //нарисовать
@@ -230,7 +244,8 @@ namespace CourseProject
         }
 
         private void DrawDestroyingBalloons()
-        {           
+        {
+            DrawingLib drawing = new DrawingLib();
             int timer_ticks = 0;
             tDestroy = new Timer();
             tDestroy.Interval = 30;
@@ -243,9 +258,17 @@ namespace CourseProject
                 {
                     g.FillPie(new SolidBrush(Color.FromArgb(128, 128, 255)), new Rectangle(new Point(match_indexes[i][0] * 42 + 1, match_indexes[i][1] * 42 + 61), new Size(41, 41)), 18 * timer_ticks, 18 * timer_ticks + 1);
                 }
+                //если бомбы есть - нарисовать
+                if (explosion_indexes.Count >= 1)
+                {
+                    for (int i = 0; i < explosion_indexes.Count; i++)
+                        g.DrawImage(drawing.draw_explosion(timer_ticks, Application.StartupPath.ToString() + "\\Resouses\\Explosion\\explosion" + timer_ticks + ".png"), new Point((explosion_indexes[i][0] - 1) * 42, (explosion_indexes[i][1] - 1) * 42 + 61));
+                }
                 pictureBox1.Image = bmp;//вывод на picturebox   
                 if (timer_ticks == 19)
                 {
+                    //нарисовать сетку
+                    g.DrawImage(drawing.draw_grid(pictureBox1.Width, pictureBox1.Height), new Point(0, 60));
                     //очистить gameboard
                     for (int i = 0; i < match_indexes.Count(); i++)
                     {
