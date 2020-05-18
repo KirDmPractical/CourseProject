@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.startgame = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,6 +46,7 @@
             this.moves = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.Finalscore = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Shop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -186,7 +188,7 @@
             this.score.Name = "score";
             this.score.Size = new System.Drawing.Size(66, 22);
             this.score.TabIndex = 108;
-            this.score.Text = "10000";
+            this.score.Text = "0";
             this.score.Visible = false;
             // 
             // Exit
@@ -259,6 +261,10 @@
             this.Finalscore.Text = "Финальный счёт: ";
             this.Finalscore.Visible = false;
             // 
+            // toolTip1
+            // 
+            this.toolTip1.AutomaticDelay = 0;
+            // 
             // Balloons
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -309,6 +315,7 @@
         private System.Windows.Forms.TextBox moves;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label Finalscore;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

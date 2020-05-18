@@ -17,6 +17,7 @@ namespace CourseProject
     {
         int remaining_moves;//счётчик оставшихся ходов
         bool mistake = false;//совершил ли игрок ошибку
+        bool was_mistake = false;
         List<int[]> match_indexes = new List<int[]>();//индексы при уничтожении шариков
         List<int[]> indexes = new List<int[]>();//индексы при перемещении шариков
         List<int[]> explosion_indexes = new List<int[]>();//индексы центра взрыва бомбы
@@ -27,9 +28,10 @@ namespace CourseProject
         string cursor;//курсор - показывает какой предмет из магазина активирован
         int[,] ballon_falling_span;//на сколько клеток нужно упасть шарику
         int difficulty = 2;//сложность
+
         public Balloons()
         {
-            InitializeComponent();
+            InitializeComponent();          
         }
         
         public void GameBoardInitialization()
@@ -147,16 +149,16 @@ namespace CourseProject
                                     Shop.Visible = false;
                                     pictureBox1.Visible = false;
                                     label4.Visible = true;
-                                    Finalscore.Visible = true;                                  
+                                    Finalscore.Visible = true;
                                     Finalscore.Text += score.Text;
                                 }
                             }
                             else
                             {
                                 //проверить бомбы
-                                explosion_indexes = game.define_explode_indexes(gameboard, ref match_indexes);                               
+                                explosion_indexes = game.define_explode_indexes(gameboard, ref match_indexes);
                                 //начислить очки
-                                score.Text = ((int)(Convert.ToInt32(score.Text) + 2 * match_indexes.Count * Math.Pow(1.1, match_indexes.Count))).ToString();
+                                score.Text = ((int)(Convert.ToInt32(score.Text) + 2 * match_indexes.Count * Math.Pow(1.1, match_indexes.Count) * difficulty)).ToString();
                                 //нарисовать
                                 DrawDestroyingBalloons();
                             }
@@ -274,12 +276,13 @@ namespace CourseProject
                     {
                         gameboard[match_indexes[i][0], match_indexes[i][1]] = "";
                     }
+                    explosion_indexes.Clear();
                     Timer t = s as Timer;
                     t.Dispose();
                     GameProcess game = new GameProcess();
                     ballon_falling_span = game.define_falling_balloons(ref gameboard, difficulty);
                     DrawFallingBalloons();
-                    tFall.Start();                                     
+                    tFall.Start();
                 }
                 else
                     timer_ticks++;           
@@ -320,6 +323,7 @@ namespace CourseProject
                     timer_ticks = 0;
                     if (mistake)
                     {
+                        was_mistake = true;
                         mistake = false;
                         DrawSwapingBalloons();
                         string bottle = gameboard[indexes[0][0], indexes[0][1]];
@@ -331,7 +335,12 @@ namespace CourseProject
                         string bottle = gameboard[indexes[0][0], indexes[0][1]];
                         gameboard[indexes[0][0], indexes[0][1]] = gameboard[indexes[1][0], indexes[1][1]];
                         gameboard[indexes[1][0], indexes[1][1]] = bottle;
-                        tDestroy.Start();
+                        if (!was_mistake)
+                        {
+                            tDestroy.Start();
+                        }
+                        else
+                            was_mistake = false;
                         indexes.Clear();
                     }   
                     Timer t = s as Timer;
@@ -431,11 +440,14 @@ namespace CourseProject
                 case 2: remaining_moves = 2; break;
                 case 3: remaining_moves = 1; break;
             }
+            toolTip1.SetToolTip(Pickaxe, (1000 * difficulty * 0.5).ToString());
+            toolTip1.SetToolTip(Bomb, (1600 * difficulty * 0.5).ToString());
+            toolTip1.SetToolTip(Bucket, (3000 * difficulty * 0.5).ToString());
             moves.Text = remaining_moves.ToString();
             GameBoardInitialization();//нарисовать сетку
             GameProcess gameProcess = new GameProcess();
             gameboard = gameProcess.starting_game_board_initialization();
-            DrawFallingBalloons_start();        
+            DrawFallingBalloons_start();                 
         }
 
         private void Exit_Click(object sender, EventArgs e)
