@@ -13,8 +13,9 @@ using System.Threading.Tasks;
 
 namespace CourseProject
 {
-    public partial class Form1 : Form
+    public partial class Balloons : Form
     {
+        int remaining_moves;//счётчик оставшихся ходов
         bool mistake = false;//совершил ли игрок ошибку
         List<int[]> match_indexes = new List<int[]>();//индексы при уничтожении шариков
         List<int[]> indexes = new List<int[]>();//индексы при перемещении шариков
@@ -22,9 +23,10 @@ namespace CourseProject
         Timer tFall = new Timer();
         List <Point> points = new List<Point>();//индексы первого и второго выбранного шарика
         string[,] gameboard;//игровое поле
+        string cursor;//курсор - показывает какой предмет из магазина активирован
         int[,] ballon_falling_span;//на сколько клеток нужно упасть шарику
         int difficulty = 2;//сложность
-        public Form1()
+        public Balloons()
         {
             InitializeComponent();
         }
@@ -34,7 +36,7 @@ namespace CourseProject
             Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             Graphics g = Graphics.FromImage(bmp);
             g.Clear(Color.FromArgb(128, 128, 255));
-            using (var image = new Bitmap(Application.StartupPath.ToString() + "\\Resouses\\nametag.bmp"))
+            using (var image = new Bitmap(Application.StartupPath.ToString() + "\\Resouses\\Nametag.png"))
             {
                 g.DrawImage(image, new Point(0, 0));
             }          
@@ -45,6 +47,7 @@ namespace CourseProject
      
         private void Form1_Load(object sender, EventArgs e)
         {
+            //улучшение графики
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
@@ -52,21 +55,55 @@ namespace CourseProject
             UpdateStyles(); 
         }
 
+        //Обработчик нажатия игрока на игровое поле
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
-        {           
+        {
+            GameProcess game = new GameProcess();
             //объявить битмап
             Bitmap bmp = new Bitmap(pictureBox1.Image);
             Graphics g = Graphics.FromImage(bmp);
             for (int y = 0; y < 10; y++)
                 for (int x = 0; x < 10; x++)
-                {  
+                {
                     //считывание координат
                     if (e.X > x * 42 && e.X < (x + 1) * 42 &&
                         e.Y > y * 42 + 60 && e.Y < (y + 1) * 42 + 60)
                     {
                         int[] XY = { x, y };
+                        //Если выбран инструмент
+                        //кирка
+                        if (cursor == "pickaxe")
+                        {
+                            match_indexes.Clear();
+                            match_indexes.Add(XY);
+                            DrawDestroyingBalloons();
+                            tDestroy.Start();
+                            cursor = "";
+                        }
+                        //краска
+                        else if (cursor == "bucket")
+                        {
+                            gameboard[x, y] = "M";
+                            cursor = "";
+                            g.FillRectangle(new SolidBrush(Color.FromArgb(128, 128, 255)), new Rectangle(new Point(x * 42 + 1, y * 42 + 61), new Size(41, 41)));
+                            using (var image = new Bitmap(Application.StartupPath.ToString() + "\\Resouses\\M.png"))
+                            {
+                                g.DrawImage(image, new Point(x * 42 + 1, y * 42 + 61));
+                            }
+                        }
+                        //бомба
+                        else if(cursor == "bomb")
+                        {
+                            gameboard[x, y] = "Bomb";
+                            cursor = "";
+                            g.FillRectangle(new SolidBrush(Color.FromArgb(128, 128, 255)), new Rectangle(new Point(x * 42 + 1, y * 42 + 61), new Size(41, 41)));
+                            using (var image = new Bitmap(Application.StartupPath.ToString() + "\\Resouses\\Bomb.png"))
+                            {
+                                g.DrawImage(image, new Point(x * 42 + 1, y * 42 + 61));
+                            }
+                        }
                         //если это камень
-                        if (gameboard[x, y] == "Rock");
+                        else if (gameboard[x, y] == "Rock") ;
                         //если нет выбранного шарика
                         else if (indexes.Count == 0)
                         {
@@ -74,7 +111,7 @@ namespace CourseProject
                             g.FillRectangle(new SolidBrush(Color.FromArgb(0, 0, 64)), new Rectangle(new Point(x * 42 + 1, y * 42 + 61), new Size(41, 41)));
                             using (var image = new Bitmap(Application.StartupPath.ToString() + "\\Resouses\\" + gameboard[x, y] + ".png"))
                             {
-                                g.DrawImage(image, new Point(x * 42, y * 42 + 60));
+                                g.DrawImage(image, new Point(x * 42 + 1, y * 42 + 61));
                             }
                         }
                         //если второй выбранный шарик находится рядом с первым
@@ -85,7 +122,6 @@ namespace CourseProject
                         {
                             indexes.Add(XY);
                             DrawSwapingBalloons();
-                            GameProcess game = new GameProcess();
                             string bottle = gameboard[indexes[0][0], indexes[0][1]];
                             gameboard[indexes[0][0], indexes[0][1]] = gameboard[indexes[1][0], indexes[1][1]];
                             gameboard[indexes[1][0], indexes[1][1]] = bottle;
@@ -96,9 +132,18 @@ namespace CourseProject
                             if (match_indexes.Count == 0)
                             {
                                 mistake = true;
+                                remaining_moves -= 1;
+                                moves.Text = remaining_moves.ToString();
+                                if (remaining_moves == 0)
+                                {
+
+                                }
                             }
                             else
                             {
+                                //начислить очки
+                                score.Text = ((int)(Convert.ToInt32(score.Text) + 2 * match_indexes.Count * Math.Pow(1.1, match_indexes.Count))).ToString();
+                                //нарисовать
                                 DrawDestroyingBalloons();
                             }
                             return;
@@ -114,7 +159,7 @@ namespace CourseProject
                             g.FillRectangle(new SolidBrush(Color.FromArgb(0, 0, 64)), new Rectangle(new Point(x * 42 + 1, y * 42 + 61), new Size(41, 41)));
                             using (var image = new Bitmap(Application.StartupPath.ToString() + "\\Resouses\\" + gameboard[x, y] + ".png"))
                             {
-                                g.DrawImage(image, new Point(x * 42, y * 42 + 60));
+                                g.DrawImage(image, new Point(x * 42 + 1, y * 42 + 61));
                             }
                             indexes[0][0] = x;
                             indexes[0][1] = y;
@@ -176,7 +221,8 @@ namespace CourseProject
                     Timer t = s as Timer;
                     t.Dispose();
                 }
-                timer_ticks++;
+                else
+                    timer_ticks++;
                 pictureBox1.Image = bmp;//вывод на picturebox
             }
             );
@@ -200,7 +246,6 @@ namespace CourseProject
                 pictureBox1.Image = bmp;//вывод на picturebox   
                 if (timer_ticks == 19)
                 {
-                    //
                     //очистить gameboard
                     for (int i = 0; i < match_indexes.Count(); i++)
                     {
@@ -352,6 +397,18 @@ namespace CourseProject
             hard.Visible = false;
             startgame.Visible = false;
             pictureBox1.Visible = true;
+            label1.Visible = true;
+            label3.Visible = true;
+            score.Visible = true;
+            moves.Visible = true;
+            Shop.Visible = true;
+            switch(difficulty)
+            {
+                case 1: remaining_moves = 5; break;
+                case 2: remaining_moves = 2; break;
+                case 3: remaining_moves = 1; break;
+            }
+            moves.Text = remaining_moves.ToString();
             GameBoardInitialization();//нарисовать сетку
             GameProcess gameProcess = new GameProcess();
             gameboard = gameProcess.starting_game_board_initialization();
@@ -361,6 +418,33 @@ namespace CourseProject
         private void Exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void Pickaxe_Click(object sender, EventArgs e)
+        {
+            score.Text = (Convert.ToInt32(score.Text) - 1000 * difficulty * 0.5).ToString();
+            if (Convert.ToInt32(score.Text) > 0)
+                cursor = "pickaxe";
+            else
+                score.Text = (Convert.ToInt32(score.Text) + 1000 * difficulty * 0.5).ToString();
+        }
+
+        private void Bucket_Click(object sender, EventArgs e)
+        {
+            score.Text = (Convert.ToInt32(score.Text) - 1600 * difficulty * 0.5).ToString();
+            if (Convert.ToInt32(score.Text) > 0)
+                cursor = "bucket";
+            else
+                score.Text = (Convert.ToInt32(score.Text) + 1600 * difficulty * 0.5).ToString();
+        }
+
+        private void Bomb_Click(object sender, EventArgs e)
+        {
+            score.Text = (Convert.ToInt32(score.Text) - 3000 * difficulty * 0.5).ToString();
+            if (Convert.ToInt32(score.Text) > 0)
+                cursor = "bomb";
+            else
+                score.Text = (Convert.ToInt32(score.Text) + 3000 * difficulty * 0.5).ToString();
         }
     }
 }

@@ -2,9 +2,9 @@ D:\Labs\My\CourseProject\CourseProject\CourseProject\bin\Debug\CourseProject.exe
 D:\Labs\My\CourseProject\CourseProject\CourseProject\bin\Debug\CourseProject.exe
 D:\Labs\My\CourseProject\CourseProject\CourseProject\bin\Debug\CourseProject.pdb
 D:\Labs\My\CourseProject\CourseProject\CourseProject\obj\Debug\CourseProject.csprojAssemblyReference.cache
-D:\Labs\My\CourseProject\CourseProject\CourseProject\obj\Debug\CourseProject.Form1.resources
 D:\Labs\My\CourseProject\CourseProject\CourseProject\obj\Debug\CourseProject.Properties.Resources.resources
 D:\Labs\My\CourseProject\CourseProject\CourseProject\obj\Debug\CourseProject.csproj.GenerateResource.cache
 D:\Labs\My\CourseProject\CourseProject\CourseProject\obj\Debug\CourseProject.csproj.CoreCompileInputs.cache
 D:\Labs\My\CourseProject\CourseProject\CourseProject\obj\Debug\CourseProject.exe
 D:\Labs\My\CourseProject\CourseProject\CourseProject\obj\Debug\CourseProject.pdb
+D:\Labs\My\CourseProject\CourseProject\CourseProject\obj\Debug\CourseProject.Balloons.resources

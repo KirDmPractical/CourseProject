@@ -131,7 +131,7 @@ namespace CourseProject
             //по горихонтали(X)
             for (int x = X_i - (difficulty-1); x <= X_i + (difficulty - 1); x++)
             {
-                if (x >= 0 && x <= 9 && gameboard[x, Y_i] == gameboard[X_i, Y_i])
+                if (x >= 0 && x <= 9 && (gameboard[x, Y_i] == gameboard[X_i, Y_i] || gameboard[x, Y_i] == "M"))
                     num_of_matches++;
                 else num_of_matches = 0;
                 if (num_of_matches == difficulty)
@@ -140,7 +140,7 @@ namespace CourseProject
             //по вертикали(Y)
             for (int y = Y_i - (difficulty - 1); y <= Y_i + (difficulty - 1); y++)
             {
-                if (y >= 0 && y <= 9 && gameboard[X_i, y] == gameboard[X_i, Y_i])
+                if (y >= 0 && y <= 9 && (gameboard[X_i, y] == gameboard[X_i, Y_i] || gameboard[X_i, y] == "M"))
                     num_of_matches++;
                 else num_of_matches = 0;
                 if (num_of_matches == difficulty)
@@ -193,7 +193,7 @@ namespace CourseProject
                                 {
                                     unique = false;
                                 }
-                            if (unique && gameboard[indexes[i][0] - 1, indexes[i][1]] == color)
+                            if (unique && (gameboard[indexes[i][0] - 1, indexes[i][1]] == color || gameboard[indexes[i][0] - 1, indexes[i][1]] == "M"))
                             {
                                 find = true;
                                 indexes.Add(new int[2] { indexes[i][0] - 1, indexes[i][1] });
@@ -208,7 +208,7 @@ namespace CourseProject
                                 {
                                     unique = false;
                                 }
-                            if (unique && gameboard[indexes[i][0] + 1, indexes[i][1]] == color)
+                            if (unique && (gameboard[indexes[i][0] + 1, indexes[i][1]] == color || gameboard[indexes[i][0] + 1, indexes[i][1]] == "M"))
                             {
                                 find = true;
                                 indexes.Add(new int[2] { indexes[i][0] + 1, indexes[i][1] });
@@ -229,7 +229,7 @@ namespace CourseProject
                                 {
                                     unique = false;
                                 }
-                            if (unique && gameboard[indexes[i][0], indexes[i][1] - 1] == color)
+                            if (unique && (gameboard[indexes[i][0], indexes[i][1] - 1] == color || gameboard[indexes[i][0], indexes[i][1] - 1] == "M"))
                             {
                                 find = true;
                                 indexes.Add(new int[2] { indexes[i][0], indexes[i][1] - 1 });
@@ -244,7 +244,7 @@ namespace CourseProject
                                 {
                                     unique = false;
                                 }
-                            if (unique && gameboard[indexes[i][0], indexes[i][1] + 1] == color)
+                            if (unique && (gameboard[indexes[i][0], indexes[i][1] + 1] == color || gameboard[indexes[i][0], indexes[i][1] + 1] == "M"))
                             {
                                 find = true;
                                 indexes.Add(new int[2] { indexes[i][0], indexes[i][1] + 1 });

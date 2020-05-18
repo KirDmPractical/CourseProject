@@ -1,6 +1,6 @@
 ﻿namespace CourseProject
 {
-    partial class Form1
+    partial class Balloons
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -28,33 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.startgame = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.easy = new System.Windows.Forms.Button();
             this.normal = new System.Windows.Forms.Button();
             this.hard = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Shop = new System.Windows.Forms.GroupBox();
+            this.score = new System.Windows.Forms.TextBox();
             this.Exit = new System.Windows.Forms.Button();
+            this.Bucket = new System.Windows.Forms.Button();
+            this.Bomb = new System.Windows.Forms.Button();
+            this.Pickaxe = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.moves = new System.Windows.Forms.TextBox();
+            this.Shop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(420, 481);
-            this.pictureBox1.TabIndex = 100;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
-            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             // 
             // label1
             // 
@@ -65,6 +56,7 @@
             this.label1.Size = new System.Drawing.Size(54, 24);
             this.label1.TabIndex = 101;
             this.label1.Text = "Счёт";
+            this.label1.Visible = false;
             // 
             // startgame
             // 
@@ -133,62 +125,31 @@
             this.hard.UseVisualStyleBackColor = false;
             this.hard.Click += new System.EventHandler(this.hard_Click);
             // 
-            // groupBox1
+            // Shop
             // 
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Location = new System.Drawing.Point(422, 79);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(66, 202);
-            this.groupBox1.TabIndex = 107;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Магазин";
+            this.Shop.Controls.Add(this.Bucket);
+            this.Shop.Controls.Add(this.Bomb);
+            this.Shop.Controls.Add(this.Pickaxe);
+            this.Shop.Location = new System.Drawing.Point(422, 79);
+            this.Shop.Name = "Shop";
+            this.Shop.Size = new System.Drawing.Size(66, 202);
+            this.Shop.TabIndex = 107;
+            this.Shop.TabStop = false;
+            this.Shop.Text = "Магазин";
+            this.Shop.Visible = false;
             // 
-            // button3
+            // score
             // 
-            this.button3.BackColor = System.Drawing.Color.Green;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Location = new System.Drawing.Point(6, 141);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(55, 55);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "K";
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.Green;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button2.Location = new System.Drawing.Point(6, 80);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(55, 55);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "K";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Green;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Location = new System.Drawing.Point(6, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(55, 55);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "K";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.Lime;
-            this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.textBox1.Location = new System.Drawing.Point(422, 36);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(66, 22);
-            this.textBox1.TabIndex = 108;
-            this.textBox1.Text = "0";
+            this.score.BackColor = System.Drawing.Color.Lime;
+            this.score.Enabled = false;
+            this.score.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.score.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.score.Location = new System.Drawing.Point(422, 36);
+            this.score.Name = "score";
+            this.score.Size = new System.Drawing.Size(66, 22);
+            this.score.TabIndex = 108;
+            this.score.Text = "5000";
+            this.score.Visible = false;
             // 
             // Exit
             // 
@@ -202,15 +163,88 @@
             this.Exit.UseVisualStyleBackColor = false;
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
-            // Form1
+            // Bucket
+            // 
+            this.Bucket.BackColor = System.Drawing.Color.Green;
+            this.Bucket.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Bucket.Image = global::CourseProject.Properties.Resources.Bucket;
+            this.Bucket.Location = new System.Drawing.Point(6, 141);
+            this.Bucket.Name = "Bucket";
+            this.Bucket.Size = new System.Drawing.Size(55, 55);
+            this.Bucket.TabIndex = 2;
+            this.Bucket.UseVisualStyleBackColor = false;
+            this.Bucket.Click += new System.EventHandler(this.Bucket_Click);
+            // 
+            // Bomb
+            // 
+            this.Bomb.BackColor = System.Drawing.Color.Green;
+            this.Bomb.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Bomb.Image = global::CourseProject.Properties.Resources.Bomb;
+            this.Bomb.Location = new System.Drawing.Point(6, 80);
+            this.Bomb.Name = "Bomb";
+            this.Bomb.Size = new System.Drawing.Size(55, 55);
+            this.Bomb.TabIndex = 1;
+            this.Bomb.UseVisualStyleBackColor = false;
+            this.Bomb.Click += new System.EventHandler(this.Bomb_Click);
+            // 
+            // Pickaxe
+            // 
+            this.Pickaxe.BackColor = System.Drawing.Color.Green;
+            this.Pickaxe.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Pickaxe.Image = global::CourseProject.Properties.Resources.Pickaxe;
+            this.Pickaxe.Location = new System.Drawing.Point(6, 19);
+            this.Pickaxe.Name = "Pickaxe";
+            this.Pickaxe.Size = new System.Drawing.Size(55, 55);
+            this.Pickaxe.TabIndex = 0;
+            this.Pickaxe.UseVisualStyleBackColor = false;
+            this.Pickaxe.Click += new System.EventHandler(this.Pickaxe_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(420, 481);
+            this.pictureBox1.TabIndex = 100;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(422, 293);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 24);
+            this.label3.TabIndex = 110;
+            this.label3.Text = "Ходов";
+            this.label3.Visible = false;
+            // 
+            // moves
+            // 
+            this.moves.BackColor = System.Drawing.Color.Lime;
+            this.moves.Enabled = false;
+            this.moves.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.moves.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.moves.Location = new System.Drawing.Point(422, 320);
+            this.moves.Name = "moves";
+            this.moves.Size = new System.Drawing.Size(66, 22);
+            this.moves.TabIndex = 111;
+            this.moves.Text = "0";
+            this.moves.Visible = false;
+            // 
+            // Balloons
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(489, 481);
+            this.Controls.Add(this.moves);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.Exit);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.score);
+            this.Controls.Add(this.Shop);
             this.Controls.Add(this.hard);
             this.Controls.Add(this.normal);
             this.Controls.Add(this.easy);
@@ -219,12 +253,12 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form1";
+            this.Name = "Balloons";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "li";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shop.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -238,12 +272,14 @@
         private System.Windows.Forms.Button easy;
         private System.Windows.Forms.Button normal;
         private System.Windows.Forms.Button hard;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox Shop;
+        private System.Windows.Forms.Button Bucket;
+        private System.Windows.Forms.Button Bomb;
+        private System.Windows.Forms.Button Pickaxe;
+        private System.Windows.Forms.TextBox score;
         private System.Windows.Forms.Button Exit;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox moves;
     }
 }
 
